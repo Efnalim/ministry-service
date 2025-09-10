@@ -1,0 +1,281 @@
+openapi: 3.0.3
+info:
+  title: Ministry API
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /ministers:
+    get:
+      summary: Get all ministers
+      responses:
+        '200':
+          description: List of ministers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Minister'
+    post:
+      summary: Create a minister
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Minister'
+      responses:
+        '201':
+          description: Minister created
+
+  /ministers/{id}:
+    get:
+      summary: Get a minister by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A minister
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Minister'
+    put:
+      summary: Update a minister
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Minister'
+      responses:
+        '200':
+          description: Minister updated
+    delete:
+      summary: Delete a minister
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Minister deleted
+
+  /ministries:
+    get:
+      summary: Get all ministries
+      responses:
+        '200':
+          description: List of ministries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ministry'
+    post:
+      summary: Create a ministry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ministry'
+      responses:
+        '201':
+          description: Ministry created
+
+  /ministries/{id}:
+    get:
+      summary: Get a ministry by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A ministry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ministry'
+    put:
+      summary: Update a ministry
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ministry'
+      responses:
+        '200':
+          description: Ministry updated
+    delete:
+      summary: Delete a ministry
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Ministry deleted
+
+  /reminders:
+    get:
+      summary: Get all reminders
+      responses:
+        '200':
+          description: List of reminders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reminder'
+    post:
+      summary: Create a reminder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reminder'
+      responses:
+        '201':
+          description: Reminder created
+
+  /reminders/{id}:
+    get:
+      summary: Get a reminder by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A reminder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reminder'
+    put:
+      summary: Update a reminder
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reminder'
+      responses:
+        '200':
+          description: Reminder updated
+    delete:
+      summary: Delete a reminder
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Reminder deleted
+
+  /ministry-types:
+    get:
+      summary: Get all ministry types
+      responses:
+        '200':
+          description: List of ministry types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MinistryType'
+
+components:
+  schemas:
+    Minister:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        ministries:
+          type: array
+          items:
+            type: string  # Reference to Ministry ID
+
+    Ministry:
+      type: object
+      properties:
+        id:
+          type: string
+        date:
+          type: string
+          format: date
+        ministerId:
+          type: string
+        ministryType:
+          $ref: '#/components/schemas/MinistryType'
+        reminders:
+          type: array
+          items:
+            type: string  # Reference to Reminder ID
+
+    Reminder:
+      type: object
+      properties:
+        id:
+          type: string
+        date:
+          type: string
+          format: date
+        ministryId:
+          type: string
+
+    MinistryType:
+      type: string
+      enum:
+        - Announcements
+        - Cleaning
+        - Prayer
+        - Reading
+        - Welcome

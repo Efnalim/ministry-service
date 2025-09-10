@@ -1,0 +1,27 @@
+@startuml ministry-data-model
+class Minister {
+  name: string
+  email: string
+}
+
+class Ministry {
+  date: date
+}
+
+class Reminder {
+  date: date
+}
+
+enum MinistryType {
+  Announcements
+  Cleaning
+  Prayer
+  Reading
+  Welcome
+}
+
+Ministry "1" -- "0..*" Reminder
+Ministry "1" -- "1" MinistryType
+Minister "1" -- "0..*" Ministry
+
+@enduml
