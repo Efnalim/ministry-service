@@ -1,0 +1,45 @@
+@startuml FastAPI-Ministry-Architecture
+
+' Title and styling (optional)
+title FastAPI Server Component Diagram - Ministry Domain
+
+package "API Layer (FastAPI Routes)" {
+  [MinisterAPI]
+  [MinistryAPI]
+  [ReminderAPI]
+}
+
+package "Service Layer (Business Logic)" {
+  [MinisterService]
+  [MinistryService]
+  [ReminderService]
+}
+
+package "Repository Layer (DB Access)" {
+  [MinisterRepository]
+  [MinistryRepository]
+  [ReminderRepository]
+}
+
+package "Model Layer (SQLAlchemy Models)" {
+  [Minister]
+  [Ministry]
+  [Reminder]
+}
+
+' API Layer → Service Layer
+MinisterAPI --> MinisterService
+MinistryAPI --> MinistryService
+ReminderAPI --> ReminderService
+
+' Service Layer → Repository Layer
+MinisterService --> MinisterRepository
+MinistryService --> MinistryRepository
+ReminderService --> ReminderRepository
+
+' Repository Layer → Model Layer
+MinisterRepository --> Minister
+MinistryRepository --> Ministry
+ReminderRepository --> Reminder
+
+@enduml
